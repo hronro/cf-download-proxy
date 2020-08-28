@@ -1,0 +1,49 @@
+{
+  "name": "cf-download-proxy",
+  "version": "0.0.0",
+  "description": "A file download proxy service powered by Cloudflare worker",
+  "main": "dist/cf-download-proxy.js",
+  "scripts": {
+    "build": "rollup -c build/rollup.config.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/foisonocean/cf-download-proxy.git"
+  },
+  "keywords": [
+    "download",
+    "proxy",
+    "cloudflare",
+    "worker",
+    "ssr",
+    "typescript"
+  ],
+  "author": "hronro",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/foisonocean/cf-download-proxy/issues"
+  },
+  "homepage": "https://github.com/foisonocean/cf-download-proxy#readme",
+  "dependencies": {
+    "lodash-es": "^4.17.15",
+    "milligram": "^1.4.1"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^2.0.0",
+    "@rollup/plugin-alias": "^3.1.1",
+    "@rollup/plugin-commonjs": "^15.0.0",
+    "@rollup/plugin-inject": "^4.0.2",
+    "@rollup/plugin-node-resolve": "^9.0.0",
+    "@rollup/plugin-typescript": "^5.0.2",
+    "@rollup/pluginutils": "^4.0.0",
+    "@types/lodash-es": "^4.17.3",
+    "assert": "^2.0.0",
+    "dot": "^2.0.0-beta.1",
+    "eta": "^1.2.2",
+    "rollup": "^2.26.6",
+    "rollup-plugin-terser": "^7.0.1",
+    "tslib": "^2.0.1",
+    "typescript": "^4.0.2"
+  }
+}

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%~ E.include('partials/header.eta') %>
+  <title>Not Found</title>
+</head>
+<body>
+  <header class="container">
+    <h1 class="title" style="text-align: center;">Page Not Found</h1>
+  </header>
+  <main class="container">
+    <blockquote>
+      <p><em>Oops, The URL</em> <a href="<%= it.url %>"><%= it.url %></a> <em>is invalid.</em></p>
+    </blockquote>
+  </main>
+</body>
+</html>
