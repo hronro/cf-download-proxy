@@ -1,0 +1,5 @@
+name = "download-proxy"
+type = "javascript"
+
+workers_dev = false
+route = "download-proxy.zhaofengying.com/*"
