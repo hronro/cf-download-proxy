@@ -61,8 +61,9 @@ router.get('/api/download', async req => {
     headers: req.headers
   })
 
-  if (!headers.has('Content-Disposition')) {
-    // try to guess file name
+  // try to guess file name
+  const originalContentDisposition = headers.get('Content-Disposition')
+  if (originalContentDisposition == null || !originalContentDisposition.includes('filename=')) {
     const pathChunks = downloadUrl.split('/')
 
     if (pathChunks.length > 0) {
