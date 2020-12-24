@@ -71,6 +71,20 @@ function XMLEscape (str) {
 }
 
 /**
+ * @param { string } templateName
+ * @param { object } data 
+ */
+function include (templateName, data) {
+  const template = templates.get(templateName)
+
+  if (template == null) {
+    throw new Error(`Can not find template \`${templateName}\``)
+  }
+
+  return template(data, config)
+}
+
+/**
  * @typedef { import('eta/dist/types/config').EtaConfig } IEtaConfig
  */
 
@@ -78,34 +92,23 @@ function XMLEscape (str) {
  * @type { IEtaConfig }
  */
 export const config = {
-  varName: 'it',
-  autoTrim: [false, 'nl'],
-  rmWhitespace: true,
-  autoEscape: true,
-  tags: ['<%', '%>'],
-  parse: {
-    interpolate: '=',
-    raw: '~',
-    exec: ''
-  },
   async: false,
+  autoEscape: true,
+  autoTrim: [false, 'nl'],
+  cache: true,
+  e: XMLEscape,
+  include,
+  includeFile: include,
+  parse: {
+    exec: '',
+    interpolate: '=',
+    raw: '~'
+  },
+  plugins: [],
+  rmWhitespace: true,
+  tags: ['<%', '%>'],
   // @ts-ignore
   templates,
-  cache: false,
-  plugins: [],
   useWith: false,
-  e: XMLEscape,
-  /**
-   * @param { string } templateName
-   * @param { object } data 
-   */
-  include (templateName, data) {
-    const template = templates.get(templateName)
-
-    if (template == null) {
-      throw new Error(`Can not find template \`${templateName}\``)
-    }
-
-    return template(data, config)
-  }
+  varName: 'it'
 }
