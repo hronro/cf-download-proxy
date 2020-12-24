@@ -30,13 +30,13 @@ export default function etaPlugin (options) {
     `${options.templatesDir}${pathSeparators}`
 
   const defaultInclude = '**.eta'
-  const filter = createFilter( options.include ?? defaultInclude, options.exclude );
+  const filter = createFilter( options.include ?? defaultInclude, options.exclude )
 
 
   /**
-   * @type { Record<string, true | undefined> }
+   * @type { Set<string> }
    */
-  const registeredPartials = Object.create(null)
+  const registeredPartials = new Set()
 
   return {
     name: 'eta',
@@ -62,8 +62,6 @@ export default function etaPlugin (options) {
           throw new Error('can not use template outside `templatesDir`')
         }
 
-        // const templateName = id.slice(templatesDir.length)
-
         const ast = parse(code, etaConfig)
 
         const templateFn = compile(code, etaConfig)
@@ -83,6 +81,12 @@ export default function etaPlugin (options) {
                 if (matches != null && matches[1] != null && matches[1].length > 0) {
                   return matches[1]
                 }
+              } else if (node.t === 'e') {
+                // check if is calling `layout` method
+                const matches = node.val.match(/^layout\(('(.+)'|"(.+)")(,.+)?\)$/)
+                if (matches != null) {
+                  return matches[2]
+                }
               }
 
               return null
@@ -90,10 +94,10 @@ export default function etaPlugin (options) {
             .filter(partialName => partialName != null)
         ))
         const unregisteredPartials = partials.filter(partialName => {
-          if (registeredPartials[partialName] === true) {
+          if (registeredPartials.has(partialName)) {
             return false
           } else {
-            registeredPartials[partialName] = true
+            registeredPartials.add(partialName)
             return true
           }
         })
@@ -121,5 +125,5 @@ export default function templateFunction (data) {
         return source
       }
     }
-  };
+  }
 }

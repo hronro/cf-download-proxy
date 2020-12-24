@@ -1,5 +1,6 @@
-interface IData {
-  title: string
+import { IMainLayoutData } from './layouts/main.eta'
+
+interface IData extends IMainLayoutData {
   endpoint: string
 }
 

@@ -1,23 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <%~ E.include('partials/header.eta') %>
-  <title><%= it.title %></title>
-</head>
-<body>
-  <header class="container">
-    <h1 class="title" style="text-align: center;">Download Proxy</h1>
-  </header>
-  <main class="container">
-    <form method="GET" action="<%= it.endpoint %>">
-      <fieldset>
-        <label for="url">Original URL</label>
-        <div class="row">
-          <input class="column column-75" type="text" placeholder="https://..." id="url" name="url">
-          <input class="column column-25 button-primary" type="submit" value="Download">
-        </div>
-      </fieldset>
-    </form>
-  </main>
-</body>
-</html>
+<% layout('layouts/main.eta') %>
+
+<header class="container">
+  <h1 class="title" style="text-align: center;">Download Proxy</h1>
+</header>
+<main class="container">
+  <form method="GET" action="<%= it.endpoint %>">
+    <fieldset>
+      <label for="url">Original URL</label>
+      <div class="row">
+        <input class="column column-75" type="text" placeholder="https://..." id="url" name="url">
+        <input class="column column-25 button-primary" type="submit" value="Download">
+      </div>
+    </fieldset>
+  </form>
+</main>

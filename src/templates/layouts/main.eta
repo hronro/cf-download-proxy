@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%~ E.include('partials/header.eta') %>
+  <title><%= it.title %></title>
+</head>
+<body>
+  <%~ it.body %>
+</body>
+</html>

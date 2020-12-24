@@ -13,7 +13,7 @@ import { createFilter } from '@rollup/pluginutils'
  * @return { import('rollup').Plugin }
  */
 export default function etaPlugin (options) {
-  const filter = createFilter(options.include, options.exclude);
+  const filter = createFilter(options.include, options.exclude)
 
   return {
     name: 'raw-content',
