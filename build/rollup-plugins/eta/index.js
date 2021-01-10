@@ -2,6 +2,7 @@
 
 import { platform } from 'os'
 import { readFileSync } from 'fs'
+import * as path from 'path'
 
 import { createFilter } from '@rollup/pluginutils'
 import { compile, parse, defaultConfig as etaConfig } from 'eta'
@@ -103,7 +104,10 @@ export default function etaPlugin (options) {
         })
 
         const partialImportStatements = unregisteredPartials
-          .map((partialName, index) => `import { template as partialTemplate$${index} } from '${templatesDir}${pathSeparators}${partialName}'`)
+          .map((partialName, index) => {
+            const importPath = isWindows ? path.resolve(templatesDir, partialName).replace(/\\/g, '\\\\') : path.resolve(templatesDir, partialName)
+            return `import { template as partialTemplate$${index} } from '${importPath}'`
+          })
           .join('\n')
 
         const partialDefineStatements = unregisteredPartials
