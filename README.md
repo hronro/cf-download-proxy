@@ -6,6 +6,8 @@ A download proxy using [Cloudflare Workers](https://workers.cloudflare.com/).
 
 ## How to build your own
 
+> If you don't want to build it yourself, you can also download it from [GitHub Release](https://github.com/hronro/cf-download-proxy/releases).
+
 First, you need to install [Node.js](https://nodejs.org) and [pnpm](https://pnpm.js.org).
 
 Then install dependencies:
