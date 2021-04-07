@@ -1,4 +1,4 @@
-name: Deploy to Cloudflare
+name: Upload to GitHub Release
 
 on:
   push:
