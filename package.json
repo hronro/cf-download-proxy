@@ -20,6 +20,7 @@
     "typescript"
   ],
   "author": "hronro",
+  "private": true,
   "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/foisonocean/cf-download-proxy/issues"

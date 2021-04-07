@@ -2,8 +2,8 @@ name: Deploy to Cloudflare
 
 on:
   push:
-    branches:    
-      - master
+    tags:
+      - 'v*.*.*'
 
 env:
   NODE_VERSION: '14.x'
@@ -36,10 +36,9 @@ jobs:
             args: [--frozen-lockfile]
     - name: Build
       run: pnpm build
-    - name: Deploy to Cloudflare
-      uses: cloudflare/wrangler-action@1.2.0
-      env:
-        CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
-        CF_ZONE_ID: ${{ secrets.CF_ZONE_ID }}
+    - name: Upload to GitHub Release
+      uses: softprops/action-gh-release@v1
       with:
-          apiToken: ${{ secrets.CF_API_TOKEN }}
+        files: dist/cf-download-proxy.js
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
