@@ -6,6 +6,8 @@ import renderNotFound from './templates/404.eta'
 import renderError from './templates/error.eta'
 import renderHome from './templates/home.eta'
 
+import robotsTxt from './robots.txt'
+
 export const router = new Router({
   ignoreTrailingSlash: true,
   defaultRoute (req) {
@@ -17,6 +19,12 @@ export const router = new Router({
     }) 
   }
 })
+
+router.get('/robots.txt', () => new Response(robotsTxt, {
+  headers: {
+    'Content-Type': 'text/plain; charset=utf-8'
+  }
+}))
 
 router.get('/_assets/style.css', () => new Response(styleCss, {
   headers: {

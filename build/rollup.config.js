@@ -34,7 +34,7 @@ const config = {
       }
     }),
     rawContentPlugin({
-      include: '**.css',
+      include: ['**.css', '**.txt'],
     }),
     typescript(),
     etaPlugin({
