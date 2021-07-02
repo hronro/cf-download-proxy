@@ -3,3 +3,6 @@ type = "javascript"
 
 workers_dev = false
 route = "download-proxy.zhaofengying.com/*"
+
+[vars]
+ANALYTICS_TAG = "<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{\"token\": \"128f1c584c8b488cb776cd8f23efbfca\"}'></script><!-- End Cloudflare Web Analytics -->"
