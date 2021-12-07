@@ -46,15 +46,15 @@ router.get('/', () => {
 router.get('/api/download', async req => {
   const url = new URL(req.url)
   
-  let downloadUrl: string | null = null
+  let downloadUrlString: string | null = null
 
   for (const [key, value] of url.searchParams) {
     if (key === 'url') {
-      downloadUrl = decodeURIComponent(value)
+      downloadUrlString = decodeURIComponent(value)
     }
   }
 
-  if (downloadUrl == null || downloadUrl.length === 0) {
+  if (downloadUrlString == null || downloadUrlString.length === 0) {
     return new Response(renderError({
       error: 'Download URL is empty!'
     }), {
@@ -65,14 +65,29 @@ router.get('/api/download', async req => {
     })
   }
 
-  let { headers, body: stream } = await fetch(downloadUrl, {
+  // check if the download url is valid
+  try {
+    const downloadUrl = new URL(downloadUrlString)
+
+    if (downloadUrl.protocol !== 'http:' &&  downloadUrl.protocol !== 'https:') {
+      return new Response(renderError({
+        error: `Invalid protocol of download URL: \`${downloadUrl.protocol}\`.`,
+      }))
+    }
+  } catch {
+    return new Response(renderError({
+      error: 'Invalid download URL.',
+    }))
+  }
+
+  let { headers, body: stream } = await fetch(downloadUrlString, {
     headers: req.headers
   })
 
   // try to guess file name
   const originalContentDisposition = headers.get('Content-Disposition')
   if (originalContentDisposition == null || !originalContentDisposition.includes('filename=')) {
-    const pathChunks = downloadUrl.split('/')
+    const pathChunks = downloadUrlString.split('/')
 
     if (pathChunks.length > 0) {
       const fileName = pathChunks[pathChunks.length - 1]
