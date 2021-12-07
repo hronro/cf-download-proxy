@@ -14,22 +14,22 @@ export const router = new Router({
     return new Response(renderNotFound({ url: req.url }), {
       status: 404,
       headers: {
-        'Content-Type': 'text/html; charset=utf-8'
-      }
+        'Content-Type': 'text/html; charset=utf-8',
+      },
     }) 
   }
 })
 
 router.get('/robots.txt', () => new Response(robotsTxt, {
   headers: {
-    'Content-Type': 'text/plain; charset=utf-8'
-  }
+    'Content-Type': 'text/plain; charset=utf-8',
+  },
 }))
 
 router.get('/_assets/style.css', () => new Response(styleCss, {
   headers: {
-    'Content-Type': 'text/css; charset=utf-8'
-  }
+    'Content-Type': 'text/css; charset=utf-8',
+  },
 }))
 
 router.get('/', () => {
@@ -38,8 +38,8 @@ router.get('/', () => {
     endpoint: '/api/download'
   }), {
     headers: {
-      'Content-Type': 'text/html; charset=utf-8'
-    }
+      'Content-Type': 'text/html; charset=utf-8',
+    },
   })
 })
 
@@ -60,8 +60,8 @@ router.get('/api/download', async req => {
     }), {
       status: 400,
       headers: {
-        'Content-Type': 'text/html; charset=utf-8'
-      }
+        'Content-Type': 'text/html; charset=utf-8',
+      },
     })
   }
 
@@ -72,16 +72,26 @@ router.get('/api/download', async req => {
     if (downloadUrl.protocol !== 'http:' &&  downloadUrl.protocol !== 'https:') {
       return new Response(renderError({
         error: `Invalid protocol of download URL: \`${downloadUrl.protocol}\`.`,
-      }))
+      }), {
+        status: 400,
+        headers: {
+          'Content-Type': 'text/html; charset=utf-8',
+        },
+      })
     }
   } catch {
     return new Response(renderError({
       error: 'Invalid download URL.',
-    }))
+    }), {
+      status: 400,
+      headers: {
+        'Content-Type': 'text/html; charset=utf-8',
+      },
+    })
   }
 
   let { headers, body: stream } = await fetch(downloadUrlString, {
-    headers: req.headers
+    headers: req.headers,
   })
 
   // try to guess file name
